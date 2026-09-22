@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result | VirtualFit AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#FFFFFF',
+                        surface: '#F8F7FC',
+                        'surface-alt': '#F3E8FF',
+                        primary: '#9333EA',
+                        'primary-light': '#A855F7',
+                        'primary-dark': '#7E22CE',
+                        navy: '#0F172A',
+                        text: '#0F172A',
+                        'text-secondary': '#64748B',
+                        'text-muted': '#94A3B8',
+                        border: '#E2E8F0',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-background text-text flex flex-col min-h-screen font-[Inter]">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full flex flex-col items-center">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 border border-green-200 text-green-700 font-medium text-sm mb-6 shadow-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            AI GENERATED • COMPLETED
+        </div>
+        
+        <h1 class="text-4xl font-bold text-navy tracking-tight mb-4 text-center">StyleFit Result</h1>
+        <p class="text-text-secondary max-w-2xl mx-auto text-center mb-10">Your look, perfectly visualized.</p>
+
+        <div class="bg-surface rounded-3xl p-8 lg:p-12 shadow-sm border border-border w-full max-w-4xl">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12 mb-10">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <div class="relative bg-white p-4 rounded-2xl shadow-sm border border-border max-w-sm w-full">
+                        <img id="resultImage" src="" class="w-full h-auto object-cover rounded-xl" alt="AI Generated Try-On Result">
+                        <div class="absolute -bottom-4 -right-4 bg-primary text-white p-3 rounded-full shadow-lg">
+                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="/stylefit" class="px-8 py-4 bg-white text-navy border border-border font-semibold rounded-full hover:bg-surface-alt transition-all shadow-sm flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Try Another Look
+                </a>
+                <a id="downloadBtn" href="#" download="stylefit-result.png" class="px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-all shadow-lg shadow-primary/30 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download Result
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const imgUrl = params.get('img');
+            
+            if (imgUrl) {
+                const imgElement = document.getElementById('resultImage');
+                const downloadBtn = document.getElementById('downloadBtn');
+                
+                // Show a loading state (can add a spinner here if needed)
+                imgElement.style.opacity = '0.5';
+                
+                imgElement.onload = () => {
+                    imgElement.style.opacity = '1';
+                    downloadBtn.href = imgUrl;
+                };
+                
+                imgElement.onerror = () => {
+                    imgElement.alt = "Your AI result was generated, but the image could not be loaded. Please try again.";
+                    imgElement.style.display = 'none';
+                    
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'text-red-500 text-center font-medium p-4 bg-red-50 rounded-xl w-full';
+                    errorMsg.textContent = "Your AI result was generated, but the image could not be loaded. Please try again.";
+                    imgElement.parentElement.appendChild(errorMsg);
+                    
+                    downloadBtn.style.display = 'none';
+                };
+                
+                imgElement.src = imgUrl;
+            } else {
+                window.location.href = '/stylefit';
+            }
+        });
+    </script>
+</body>
+</html>

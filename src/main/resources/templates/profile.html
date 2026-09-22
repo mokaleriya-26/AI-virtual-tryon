@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | VirtualFit AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#FFFFFF',
+                        surface: '#F8F7FC',
+                        'surface-alt': '#F3E8FF',
+                        primary: '#9333EA',
+                        'primary-light': '#A855F7',
+                        'primary-dark': '#7E22CE',
+                        navy: '#0F172A',
+                        text: '#0F172A',
+                        'text-secondary': '#64748B',
+                        'text-muted': '#94A3B8',
+                        border: '#E2E8F0',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-surface text-text flex flex-col min-h-screen font-[Inter]">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+        
+        <div class="mb-10 text-center">
+            <div class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center text-white font-bold text-4xl mb-4 shadow-lg shadow-primary/20">
+                <span th:text="${#strings.substring(user.name, 0, 1)}"></span>
+            </div>
+            <h1 class="text-3xl font-bold text-navy tracking-tight mb-2" th:text="${user.name}">User Name</h1>
+            <p class="text-text-secondary" th:text="${user.email}">user@example.com</p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 shadow-sm border border-border">
+            <h3 class="text-xl font-bold text-navy mb-6">Account Details</h3>
+            
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-border pb-6">
+                    <div class="text-sm font-medium text-text-secondary">Full Name</div>
+                    <div class="md:col-span-2 text-navy font-medium" th:text="${user.name}"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-border pb-6">
+                    <div class="text-sm font-medium text-text-secondary">Email Address</div>
+                    <div class="md:col-span-2 text-navy font-medium" th:text="${user.email}"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-border pb-6">
+                    <div class="text-sm font-medium text-text-secondary">Member Since</div>
+                    <div class="md:col-span-2 text-navy font-medium" th:text="${#temporals.format(user.createdAt, 'MMMM dd, yyyy')}"></div>
+                </div>
+                
+                <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                    <a href="/history" class="px-6 py-3 bg-surface-alt text-primary font-medium rounded-xl hover:bg-purple-200 transition-colors text-center">
+                        View Try-On History
+                    </a>
+                    
+                    <form action="/api/auth/logout" method="post" class="flex-1 sm:flex-none">
+                        <button type="submit" class="w-full px-6 py-3 bg-red-50 text-red-600 font-medium rounded-xl hover:bg-red-100 transition-colors">
+                            Sign Out
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: virtualfit_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  # Note: Add backend and frontend services here if you wish to run everything in Docker.
+  # For local development with hot-reloading, it is recommended to run frontend/backend on the host.
+
+volumes:
+  mongodb_data:

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try-On History | VirtualFit AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#FFFFFF',
+                        surface: '#F8F7FC',
+                        'surface-alt': '#F3E8FF',
+                        primary: '#9333EA',
+                        'primary-light': '#A855F7',
+                        'primary-dark': '#7E22CE',
+                        navy: '#0F172A',
+                        text: '#0F172A',
+                        'text-secondary': '#64748B',
+                        'text-muted': '#94A3B8',
+                        border: '#E2E8F0',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-surface text-text flex flex-col min-h-screen font-[Inter]">
+
+    <!-- Navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="flex-1 py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        
+        <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-navy tracking-tight mb-2">Try-On History</h1>
+                <p class="text-text-secondary">View your previous AI-generated looks.</p>
+            </div>
+            <a href="/stylefit" class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-full hover:bg-primary-dark transition-colors shadow-sm">
+                New Try-On
+            </a>
+        </div>
+
+        <div th:if="${results.isEmpty()}" class="bg-white rounded-3xl p-12 shadow-sm border border-border text-center">
+            <div class="w-20 h-20 bg-surface rounded-full flex items-center justify-center text-text-muted mx-auto mb-6">
+                <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-navy mb-2">No history yet</h3>
+            <p class="text-text-secondary">Your StyleFit history will appear here after you create your first look.</p>
+        </div>
+
+        <div th:if="${!results.isEmpty()}" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="result : ${results}" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-border group">
+                <div class="aspect-[3/4] bg-surface relative overflow-hidden">
+                    <img th:src="${result.generatedImage}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                        <a th:href="${result.generatedImage}" download="stylefit-result.png" class="p-3 bg-white text-navy rounded-full hover:text-primary transition-colors">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </a>
+                        <a th:href="@{/result(img=${result.generatedImage})}" class="p-3 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-border bg-white">
+                    <p class="font-semibold text-navy truncate" th:text="${result.garmentDescription ?: 'StyleFit result'}"></p>
+                    <div class="mt-2 flex justify-between items-center text-sm">
+                        <span class="text-text-secondary" th:text="${result.garmentCategory ?: 'Garment'}"></span>
+                        <span class="text-text-secondary" th:text="${result.createdAt != null ? #temporals.format(result.createdAt, 'MMM dd, yyyy') : 'Date unavailable'}"></span>
+                    </div>
+                    <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded border border-green-200">Completed</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
