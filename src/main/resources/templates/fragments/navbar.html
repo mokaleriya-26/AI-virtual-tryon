@@ -1,65 +1,287 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-</head>
+
+<head></head>
+
 <body>
-    <div th:fragment="navbar">
-        <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <div class="flex items-center">
-                        <a href="/" class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                                V
-                            </div>
-                            <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-900 tracking-tight">
-                                VirtualFit AI
-                            </span>
-                        </a>
-                        
-                        <div class="hidden md:flex ml-10 space-x-8">
-                            <a href="/" class="text-slate-900 hover:text-purple-600 font-medium transition-colors">Home</a>
-                            <a href="/shop" class="text-slate-900 hover:text-purple-600 font-medium transition-colors">Shop</a>
-                            <a href="/stylefit" class="text-slate-900 hover:text-purple-600 font-medium transition-colors">StyleFit</a>
-                            <a href="/history" class="text-slate-900 hover:text-purple-600 font-medium transition-colors">Try-On History</a>
+
+<div th:fragment="navbar">
+
+    <nav class="stylefit-navbar sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center justify-between min-h-[4.5rem] gap-6">
+
+                <!-- ==================== LEFT SIDE ==================== -->
+                <div class="flex items-center gap-8 min-w-0">
+
+                    <!-- BRAND -->
+                    <a href="/"
+                       class="flex items-center gap-2.5 flex-shrink-0">
+
+                        <div class="w-9 h-9 rounded-full bg-purple-600
+                                    flex items-center justify-center
+                                    text-white font-bold text-xl">
+                            V
                         </div>
+
+                        <span class="text-xl font-bold
+                                     bg-clip-text text-transparent
+                                     bg-gradient-to-r from-purple-600 to-purple-900
+                                     tracking-tight">
+                            StyleFit
+                        </span>
+
+                    </a>
+
+
+                    <!-- NAVIGATION -->
+                    <div class="hidden md:flex items-center gap-7">
+
+                        <a href="/"
+                           class="text-slate-900 hover:text-purple-600
+                                  font-medium transition-colors whitespace-nowrap">
+                            Home
+                        </a>
+
+                        <a href="/shop"
+                           class="text-slate-900 hover:text-purple-600
+                                  font-medium transition-colors whitespace-nowrap">
+                            Shop
+                        </a>
+
+                        <a href="/stylefit"
+                           class="text-slate-900 hover:text-purple-600
+                                  font-medium transition-colors whitespace-nowrap">
+                            StyleFit
+                        </a>
+
+                        <a th:href="@{/history}"
+                           class="text-slate-900 hover:text-purple-600
+                                  font-medium transition-colors whitespace-nowrap">
+                            Try-On History
+                        </a>
+
                     </div>
-                    
-                    <div class="hidden md:flex items-center space-x-4">
-                        <div class="relative">
-                            <input type="text" placeholder="Search..." class="w-48 pl-10 pr-4 py-2 rounded-full border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                            <svg class="absolute left-3 top-2.5 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </div>
-                        
-                        <a href="/wishlist" class="p-2 text-gray-600 hover:text-purple-600 transition-colors">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                        </a>
-                        
-                        <a href="/cart" class="p-2 text-gray-600 hover:text-purple-600 transition-colors">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        </a>
-                        
-                        <!-- Logged out view -->
-                        <a sec:authorize="isAnonymous()" href="/login" class="ml-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-full font-medium transition-all shadow-sm shadow-purple-600/30">
-                            Sign In
-                        </a>
-                        
-                        <!-- Logged in view -->
-                        <div sec:authorize="isAuthenticated()" class="ml-2 flex items-center space-x-2">
-                            <a href="/profile" class="text-slate-900 font-medium hover:text-purple-600 flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold">
-                                    <span sec:authentication="name" class="uppercase text-xs"></span>
-                                </div>
-                            </a>
-                            <form action="/api/auth/logout" method="post" class="inline">
-                                <button type="submit" class="text-sm text-gray-500 hover:text-red-500 ml-2">Sign Out</button>
-                            </form>
-                        </div>
-                    </div>
+
                 </div>
+
+
+                <!-- ==================== RIGHT SIDE ==================== -->
+                <div class="hidden md:flex items-center gap-4 flex-shrink-0">
+
+
+                    <!-- SEARCH -->
+                    <div class="relative hidden lg:block">
+
+                        <input
+                                type="text"
+                                placeholder="Search..."
+                                class="w-44 xl:w-52
+                                       pl-10 pr-4 py-2.5
+                                       rounded-full
+                                       border border-gray-200
+                                       bg-gray-50
+                                       text-sm text-slate-900
+                                       placeholder-gray-400
+                                       focus:outline-none
+                                       focus:ring-2
+                                       focus:ring-purple-500
+                                       focus:border-transparent">
+
+                        <svg
+                                class="absolute left-3 top-3 h-4 w-4 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0
+                                       7 7 0 0114 0z">
+                            </path>
+
+                        </svg>
+
+                    </div>
+
+
+                    <!-- WISHLIST -->
+                    <a href="/wishlist"
+                       class="navbar-icon-button
+                              w-10 h-10
+                              flex items-center justify-center
+                              rounded-full
+                              text-gray-600
+                              hover:text-purple-600
+                              hover:bg-purple-50
+                              transition-colors"
+                       aria-label="Wishlist">
+
+                        <svg
+                                class="w-5 h-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                            <path
+                                    fill-rule="evenodd"
+                                    stroke-width="1.8"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                    clip-rule="evenodd">
+                            </path>
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- BAG -->
+                    <a href="/cart"
+                       class="navbar-icon-button
+                              w-10 h-10
+                              flex items-center justify-center
+                              rounded-full
+                              text-gray-600
+                              hover:text-purple-600
+                              hover:bg-purple-50
+                              transition-colors"
+                       aria-label="Bag">
+
+                        <svg
+                                class="w-5 h-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z">
+                            </path>
+
+                        </svg>
+
+                    </a>
+
+
+                    <!-- ==================== LOGGED OUT ==================== -->
+                    <a
+                            sec:authorize="isAnonymous()"
+                            href="/login"
+                            class="bg-purple-600
+                                   hover:bg-purple-700
+                                   text-white
+                                   px-5 py-2.5
+                                   rounded-full
+                                   font-medium
+                                   transition-all
+                                   shadow-sm
+                                   shadow-purple-600/30
+                                   whitespace-nowrap">
+
+                        Sign In
+
+                    </a>
+
+
+                    <!-- ==================== LOGGED IN ==================== -->
+                    <div
+                            sec:authorize="isAuthenticated()"
+                            class="flex items-center gap-4">
+
+                        <!-- PROFILE -->
+                        <a
+                                href="/profile"
+                                class="flex items-center
+                                       justify-center
+                                       w-10 h-10
+                                       rounded-full
+                                       bg-purple-100
+                                       text-purple-700
+                                       hover:bg-purple-200
+                                       transition-colors
+                                       flex-shrink-0"
+                                aria-label="Profile">
+
+                            <!-- Only show the first character inside avatar -->
+                            <span
+                                    sec:authentication="principal.name"
+                                    class="font-bold text-sm">
+                            </span>
+
+                        </a>
+
+
+                        <!-- SIGN OUT -->
+                        <form
+                                action="/api/auth/logout"
+                                method="post"
+                                class="flex-shrink-0">
+
+                            <button
+                                    type="submit"
+                                    class="text-sm
+                                           font-medium
+                                           text-gray-600
+                                           hover:text-red-500
+                                           transition-colors
+                                           whitespace-nowrap
+                                           px-1">
+
+                                Sign Out
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================== MOBILE MENU BUTTON ==================== -->
+
+                <button
+                        type="button"
+                        class="md:hidden
+                               w-10 h-10
+                               flex items-center justify-center
+                               rounded-lg
+                               text-gray-700
+                               hover:bg-purple-50
+                               hover:text-purple-600"
+                        aria-label="Open menu">
+
+                    <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+
+                    </svg>
+
+                </button>
+
             </div>
-        </nav>
-    </div>
+
+        </div>
+
+    </nav>
+
+</div>
+
 </body>
 </html>

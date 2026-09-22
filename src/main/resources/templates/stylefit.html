@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleFit | VirtualFit AI</title>
+    <title>StyleFit | Your look, perfectly visualized.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -89,19 +89,9 @@
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                        <label class="block text-sm font-semibold text-navy mb-2">Garment Category</label>
-                        <select id="garmentCategory" class="w-full px-4 py-3 rounded-xl border border-border bg-white text-navy focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                            <option value="upper_body">Upper Body</option>
-                            <option value="lower_body">Lower Body</option>
-                            <option value="dresses">Dresses</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-navy mb-2">Description (Optional)</label>
-                        <input id="garmentDescription" type="text" value="Classic white button-up shirt" placeholder="e.g. red short sleeve t-shirt" class="w-full px-4 py-3 rounded-xl border border-border bg-white text-navy focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                    </div>
+                <div>
+                    <label class="block text-sm font-semibold text-navy mb-2">Description (Optional)</label>
+                    <input id="garmentDescription" type="text" value="Classic white button-up shirt" placeholder="e.g. red short sleeve t-shirt" class="w-full px-4 py-3 rounded-xl border border-border bg-white text-navy focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                 </div>
 
                 <div id="errorBox" class="hidden bg-red-50 text-red-500 p-4 rounded-xl border border-red-200">
@@ -125,7 +115,7 @@
                 <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a id="downloadResult" href="#" download="stylefit-result.png" class="px-6 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary-dark transition-colors">Download Result</a>
                     <button type="button" id="tryAgainBtn" class="px-6 py-3 bg-white text-navy border border-border font-semibold rounded-full hover:bg-surface-alt transition-colors">Try Another Outfit</button>
-                    <a href="/history" class="px-6 py-3 text-primary font-semibold hover:text-primary-dark transition-colors">View Try-On History</a>
+                    <a th:href="@{/history}" class="px-6 py-3 text-primary font-semibold hover:text-primary-dark transition-colors">View Try-On History</a>
                 </div>
             </section>
             
@@ -147,7 +137,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const garmentImageUrl = params.get('garmentImage');
-            const garmentCategory = params.get('garmentCategory');
             const garmentDesc = params.get('garmentDescription');
             
             if (garmentImageUrl) {
@@ -164,9 +153,6 @@
                         document.getElementById('garmentPreview').classList.remove('hidden');
                         document.getElementById('garmentImg').src = garmentImageUrl;
                     });
-            }
-            if (garmentCategory) {
-                document.getElementById('garmentCategory').value = garmentCategory;
             }
             if (garmentDesc) {
                 document.getElementById('garmentDescription').value = garmentDesc;
@@ -202,7 +188,6 @@
         document.getElementById('generateBtn').addEventListener('click', async function() {
             const personFile = document.getElementById('personImage').files[0];
             const garmentFile = document.getElementById('garmentImage').files[0];
-            const category = document.getElementById('garmentCategory').value;
             const description = document.getElementById('garmentDescription').value;
             
             if (!personFile || !garmentFile) {
@@ -218,7 +203,6 @@
             const formData = new FormData();
             formData.append('personImage', personFile);
             formData.append('garmentImage', garmentFile);
-            formData.append('garmentCategory', category);
             formData.append('garmentDescription', description);
             
             try {

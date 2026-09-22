@@ -20,34 +20,76 @@ public class ShopController {
         this.productService = productService;
     }
 
-
     @GetMapping("/shop")
-    public String shopPage(@RequestParam(required = false, defaultValue = "All") String category,
-                           @RequestParam(required = false) String search,
-                           Model model) {
-        
+    public String shopPage(
+            @RequestParam(required = false, defaultValue = "All")
+            String category,
+
+            @RequestParam(required = false)
+            String search,
+
+            Model model) {
+
         List<Product> products;
-        
+
         if ("All".equalsIgnoreCase(category)) {
+
             products = productService.getAllProducts();
+
         } else {
+
             products = productService.getProductsByCategory(category);
         }
 
+
+        // SEARCH
         if (search != null && !search.trim().isEmpty()) {
-            String lowercaseSearch = search.toLowerCase();
+
+            String lowercaseSearch =
+                    search.trim().toLowerCase();
+
             products = products.stream()
-                    .filter(p -> p.getName().toLowerCase().contains(lowercaseSearch) || 
-                                 p.getCategory().toLowerCase().contains(lowercaseSearch))
+                    .filter(product ->
+                            product.getName()
+                                    .toLowerCase()
+                                    .contains(lowercaseSearch)
+                            ||
+                            product.getCategory()
+                                    .toLowerCase()
+                                    .contains(lowercaseSearch)
+                    )
                     .collect(Collectors.toList());
         }
 
-        List<String> categories = Arrays.asList("All", "T-Shirts", "Shirts", "Dresses", "Tops", "Jackets", "Jeans", "Sweaters");
-        
+
+        // ONLY SUPPORTED SHOP CATEGORIES
+        List<String> categories = Arrays.asList(
+                "All",
+                "T-Shirts",
+                "Shirts",
+                "Tops",
+                "Jackets",
+                "Sweaters"
+        );
+
+
         model.addAttribute("products", products);
-        model.addAttribute("categories", categories);
-        model.addAttribute("activeCategory", category);
-        model.addAttribute("searchQuery", search != null ? search : "");
+
+        model.addAttribute(
+                "categories",
+                categories
+        );
+
+        model.addAttribute(
+                "activeCategory",
+                category
+        );
+
+        model.addAttribute(
+                "searchQuery",
+                search != null ? search : ""
+        );
+
 
         return "shop";
     }

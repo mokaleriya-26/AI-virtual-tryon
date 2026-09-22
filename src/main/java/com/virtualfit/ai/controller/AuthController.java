@@ -7,10 +7,12 @@ import com.virtualfit.ai.service.AuthService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
 
 import java.util.Map;
 
@@ -26,13 +28,19 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request, HttpServletResponse response) {
         try {
             AuthResponse authResponse = authService.register(request);
             setJwtCookie(response, authResponse.getToken());
             return ResponseEntity.ok(authResponse);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
+            org.slf4j.LoggerFactory.getLogger(AuthController.class)
+                    .error("Registration failed for email {}: {}", request.getEmail(), e.getMessage(), e);
+            if ("Email already exists".equals(e.getMessage())) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(Map.of("message", "An account with this email already exists."));
+            }
+            return ResponseEntity.internalServerError().body(Map.of("message", "Something went wrong. Please try again."));
         }
     }
 

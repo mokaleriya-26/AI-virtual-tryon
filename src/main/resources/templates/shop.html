@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | VirtualFit AI</title>
+
+    <title>Shop | StyleFit</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -20,101 +24,408 @@
                         text: '#0F172A',
                         'text-secondary': '#64748B',
                         'text-muted': '#94A3B8',
-                        border: '#E2E8F0',
+                        border: '#E2E8F0'
                     }
                 }
             }
         }
     </script>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="bg-background text-text flex flex-col min-h-screen font-[Inter]">
 
-    <!-- Navbar -->
+    <!-- NAVBAR -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
+
+    <!-- MAIN -->
     <main class="flex-1 bg-surface py-12">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- HEADER -->
             <div class="mb-10 text-center">
-                <h1 class="text-4xl font-bold text-navy mb-4 tracking-tight">Shop Collection</h1>
-                <p class="text-text-secondary max-w-2xl mx-auto">Discover your next favorite look. Try them on instantly with StyleFit.</p>
+
+                <h1 class="text-4xl font-bold text-navy mb-4 tracking-tight">
+                    Shop Collection
+                </h1>
+
+                <p class="text-text-secondary max-w-2xl mx-auto">
+                    Discover your next favorite look.
+                    Try them on instantly with StyleFit.
+                </p>
+
             </div>
+
 
             <div class="flex flex-col md:flex-row gap-8">
-                <!-- Sidebar -->
+
+
+                <!-- ========================= -->
+                <!-- SIDEBAR -->
+                <!-- ========================= -->
+
                 <div class="w-full md:w-64 flex-shrink-0">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-border sticky top-24">
-                        <h3 class="text-lg font-bold text-navy mb-6">Categories</h3>
+
+                    <div
+                        class="bg-white p-6 rounded-2xl shadow-sm border border-border sticky top-24">
+
+                        <h3 class="text-lg font-bold text-navy mb-6">
+                            Categories
+                        </h3>
+
                         <ul class="space-y-2">
+
                             <li th:each="cat : ${categories}">
-                                <a th:href="@{/shop(category=${cat})}"
-                                   th:class="${activeCategory == cat} ? 'block px-4 py-2 rounded-lg bg-surface-alt text-primary font-medium transition-colors' : 'block px-4 py-2 rounded-lg hover:bg-surface text-text-secondary hover:text-navy transition-colors'"
-                                   th:text="${cat}"></a>
+
+                                <a
+                                    th:href="@{/shop(category=${cat})}"
+
+                                    th:class="${activeCategory == cat}
+                                    ? 'block px-4 py-2 rounded-lg bg-surface-alt text-primary font-medium transition-colors'
+                                    : 'block px-4 py-2 rounded-lg hover:bg-surface text-text-secondary hover:text-navy transition-colors'"
+
+                                    th:text="${cat}">
+                                </a>
+
                             </li>
+
                         </ul>
+
                     </div>
+
                 </div>
 
-                <!-- Product Grid -->
+
+                <!-- ========================= -->
+                <!-- PRODUCTS -->
+                <!-- ========================= -->
+
                 <div class="flex-1">
+
+
+                    <!-- SEARCH -->
+
                     <div class="mb-6">
-                        <form action="/shop" method="get" class="flex gap-4">
-                            <input type="hidden" name="category" th:value="${activeCategory}">
+
+                        <form
+                            action="/shop"
+                            method="get"
+                            class="flex gap-4">
+
+                            <input
+                                type="hidden"
+                                name="category"
+                                th:value="${activeCategory}">
+
                             <div class="relative flex-1 max-w-md">
-                                <input type="text" name="search" th:value="${searchQuery}" placeholder="Search products..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-white text-navy focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <svg class="absolute left-3 top-3.5 h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+
+                                <input
+                                    type="text"
+                                    name="search"
+                                    th:value="${searchQuery}"
+                                    placeholder="Search products..."
+
+                                    class="w-full pl-10 pr-4 py-3 rounded-xl
+                                           border border-border
+                                           bg-white text-navy
+                                           focus:outline-none
+                                           focus:ring-2
+                                           focus:ring-primary
+                                           focus:border-transparent">
+
+                                <svg
+                                    class="absolute left-3 top-3.5 h-5 w-5 text-text-muted"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor">
+
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0
+                                           7 7 0 0114 0z">
+                                    </path>
+
+                                </svg>
+
                             </div>
-                            <button type="submit" class="px-6 py-3 bg-navy text-white font-medium rounded-xl hover:bg-slate-800 transition-colors shadow-sm">Search</button>
+
+                            <button
+                                type="submit"
+                                class="px-6 py-3 bg-navy text-white
+                                       font-medium rounded-xl
+                                       hover:bg-slate-800
+                                       transition-colors shadow-sm">
+
+                                Search
+
+                            </button>
+
                         </form>
+
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Product Card -->
-                        <div th:each="product : ${products}" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-border group hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-                            <div class="relative aspect-[3/4] bg-surface overflow-hidden">
-                                <img th:src="${product.imageUrl}" th:alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                     onerror="this.src='/images/placeholder.svg'">
-                                <div class="absolute top-4 right-4 space-y-2">
-                                    <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-text-secondary hover:text-red-500 hover:bg-red-50 transition-colors shadow-sm">
-                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+
+                    <!-- PRODUCT GRID -->
+
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+                        <div
+                            th:each="product : ${products}"
+
+                            class="bg-white rounded-2xl overflow-hidden
+                                   shadow-sm border border-border
+                                   group hover:shadow-lg
+                                   hover:border-primary/20
+                                   transition-all duration-300">
+
+
+                            <!-- IMAGE -->
+
+                            <div
+                                class="relative aspect-[3/4]
+                                       bg-surface overflow-hidden">
+
+                                <img
+                                    th:src="${product.imageUrl}"
+                                    th:alt="${product.name}"
+
+                                    class="w-full h-full object-cover
+                                           group-hover:scale-105
+                                           transition-transform duration-500"
+
+                                    onerror="this.onerror=null;
+                                             this.src='/images/placeholder.svg';">
+
+
+                                <!-- WISHLIST -->
+
+                                <div
+                                    class="absolute top-4 right-4 space-y-2">
+
+                                    <button
+                                        type="button"
+
+                                        class="w-10 h-10 bg-white
+                                               rounded-full
+                                               flex items-center
+                                               justify-center
+                                               text-text-secondary
+                                               hover:text-red-500
+                                               hover:bg-red-50
+                                               transition-colors
+                                               shadow-sm">
+
+                                        <svg
+                                            class="w-5 h-5"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor">
+
+                                            <path
+                                                fill-rule="evenodd"
+                                                stroke-width="1.8"
+                                                d="M4.318 6.318a4.5 4.5 0 000
+                                                   6.364L12 20.364l7.682-7.682a4.5
+                                                   4.5 0 00-6.364-6.364L12
+                                                   7.636l-1.318-1.318a4.5
+                                                   4.5 0 00-6.364 0z"
+                                                clip-rule="evenodd">
+                                            </path>
+
+                                        </svg>
+
                                     </button>
+
                                 </div>
-                                <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <a th:href="@{/stylefit(garmentImage=${product.imageUrl}, garmentCategory=${product.category}, garmentDescription=${product.name})}" class="w-full py-3 bg-white text-navy font-semibold rounded-xl hover:bg-primary-light hover:text-white transition-colors shadow-sm flex items-center justify-center gap-2">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+
+
+                                <!-- TRY ON -->
+
+                                <div
+                                    class="absolute bottom-0 left-0 right-0
+                                           p-4 bg-gradient-to-t
+                                           from-black/50 to-transparent
+                                           opacity-0 group-hover:opacity-100
+                                           transition-opacity">
+
+                                    <a
+                                        th:href="@{/stylefit(
+                                            garmentImage=${product.imageUrl},
+                                            garmentDescription=${product.name}
+                                        )}"
+
+                                        class="w-full py-3
+                                               bg-white text-navy
+                                               font-semibold rounded-xl
+                                               hover:bg-primary-light
+                                               hover:text-white
+                                               transition-colors
+                                               shadow-sm
+                                               flex items-center
+                                               justify-center gap-2">
+
+                                        <svg
+                                            class="w-4 h-4"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor">
+
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3">
+                                            </path>
+
+                                        </svg>
+
                                         Try with StyleFit
+
                                     </a>
+
                                 </div>
+
                             </div>
+
+
+                            <!-- PRODUCT DETAILS -->
+
                             <div class="p-5">
-                                <div class="text-sm text-text-muted mb-1 font-medium" th:text="${product.category}"></div>
-                                <h3 class="font-bold text-navy text-lg mb-2 line-clamp-1" th:text="${product.name}"></h3>
-                                <div class="flex justify-between items-center">
-                                    <div class="font-bold text-primary text-xl" th:text="'$' + ${product.price}"></div>
-                                    <div class="flex gap-1">
-                                        <span class="w-4 h-4 rounded-full border border-border" style="background-color: #0F172A"></span>
-                                        <span class="w-4 h-4 rounded-full border border-border" style="background-color: #F8F7FC"></span>
-                                    </div>
+
+                                <div
+                                    class="text-sm text-text-muted
+                                           mb-1 font-medium"
+                                    th:text="${product.category}">
                                 </div>
+
+
+                                <h3
+                                    class="font-bold text-navy text-lg
+                                           mb-2 line-clamp-1"
+                                    th:text="${product.name}">
+                                </h3>
+
+
+                                <div
+                                    class="flex justify-between
+                                           items-center">
+
+                                    <!-- RUPEE PRICE -->
+
+                                    <div
+                                        class="font-bold text-primary
+                                               text-xl"
+
+                                        th:text="'₹' + ${#numbers.formatInteger(product.price, 0)}">
+                                    </div>
+
+
+                                    <!-- COLORS -->
+
+                                    <div class="flex gap-1">
+
+                                        <span
+                                            class="w-4 h-4 rounded-full
+                                                   border border-border"
+                                            style="background-color:#0F172A">
+                                        </span>
+
+                                        <span
+                                            class="w-4 h-4 rounded-full
+                                                   border border-border"
+                                            style="background-color:#F8F7FC">
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
                             </div>
+
                         </div>
+
                     </div>
-                    
-                    <div th:if="${products.isEmpty()}" class="bg-white p-12 rounded-2xl shadow-sm border border-border text-center">
-                        <div class="w-20 h-20 bg-surface rounded-full flex items-center justify-center text-text-muted mx-auto mb-6">
-                            <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+
+
+                    <!-- EMPTY STATE -->
+
+                    <div
+                        th:if="${products.isEmpty()}"
+
+                        class="bg-white p-12 rounded-2xl
+                               shadow-sm border border-border
+                               text-center">
+
+                        <div
+                            class="w-20 h-20 bg-surface rounded-full
+                                   flex items-center justify-center
+                                   text-text-muted mx-auto mb-6">
+
+                            <svg
+                                class="w-10 h-10"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0
+                                       7 7 0 0114 0z">
+                                </path>
+
+                            </svg>
+
                         </div>
-                        <h3 class="text-xl font-bold text-navy mb-2">No products found</h3>
-                        <p class="text-text-secondary">Try adjusting your search or category filters.</p>
-                        <a href="/shop" class="inline-block mt-6 px-6 py-3 bg-surface-alt text-primary font-medium rounded-xl hover:bg-primary hover:text-white transition-colors">Clear Filters</a>
+
+                        <h3
+                            class="text-xl font-bold text-navy mb-2">
+                            No products found
+                        </h3>
+
+                        <p class="text-text-secondary">
+                            Try adjusting your search or category filters.
+                        </p>
+
+                        <a
+                            href="/shop"
+
+                            class="inline-block mt-6
+                                   px-6 py-3 bg-surface-alt
+                                   text-primary font-medium
+                                   rounded-xl hover:bg-primary
+                                   hover:text-white
+                                   transition-colors">
+
+                            Clear Filters
+
+                        </a>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </main>
 
-    <!-- Footer -->
+
+    <!-- FOOTER -->
+
     <div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>

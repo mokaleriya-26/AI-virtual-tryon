@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,19 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        if (secretKey.startsWith("base64:") && secretKey.length() > 7) {
+            keyBytes = Decoders.BASE64.decode(secretKey.substring(7));
+        } else {
+            try {
+                byte[] decodedKey = Decoders.BASE64.decode(secretKey);
+                if (decodedKey.length >= 32) {
+                    keyBytes = decodedKey;
+                }
+            } catch (RuntimeException ignored) {
+                // The default application secret is plain text, not Base64.
+            }
+        }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -1,52 +1,278 @@
-/* Standard Custom CSS overriding Tailwind CDN if needed */
+/* =========================================================
+   STYLEFIT - CUSTOM CSS
+   ========================================================= */
 
 :root {
   --color-background: #FFFFFF;
   --color-surface: #F8F7FC;
   --color-surface-alt: #F3E8FF;
-  
+
   --color-primary: #9333EA;
   --color-primary-light: #A855F7;
   --color-primary-dark: #7E22CE;
-  
+
   --color-navy: #0F172A;
-  
+
   --color-text: #0F172A;
   --color-text-secondary: #64748B;
   --color-text-muted: #94A3B8;
-  
+
   --color-border: #E2E8F0;
-  
+
   --color-success: #22C55E;
   --color-error: #EF4444;
 }
 
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    background-color: var(--color-background);
-    color: var(--color-text);
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  background-color: var(--color-background);
+  color: var(--color-text);
+
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
 }
 
 main {
-    flex: 1;
+  flex: 1;
 }
+
+
+/* =========================================================
+   GLASS EFFECTS
+   ========================================================= */
 
 .glass {
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
+
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .glass-card {
   background-color: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(24px);
+
   border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
   border-radius: 1rem;
 }
 
-[x-cloak] { display: none !important; }
+
+/* =========================================================
+   ALPINE
+   ========================================================= */
+
+[x-cloak] {
+  display: none !important;
+}
+
+
+/* =========================================================
+   STYLEFIT NAVBAR
+   ========================================================= */
+
+.stylefit-navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  background-color: rgba(255, 255, 255, 0.96);
+
+  border-bottom: 1px solid var(--color-border);
+
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+
+/* Navbar icon buttons */
+
+.navbar-icon-button {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 9999px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-icon-button:hover {
+  background-color: var(--color-surface-alt);
+  color: var(--color-primary);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   NAVBAR PROFILE
+   ========================================================= */
+
+.navbar-profile {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 9999px;
+
+  background-color: #F3E8FF;
+
+  color: var(--color-primary-dark);
+
+  font-weight: 700;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar-profile:hover {
+  background-color: #E9D5FF;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SIGN OUT
+   ========================================================= */
+
+.navbar-signout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding: 0.5rem 0.25rem;
+
+  color: var(--color-text-secondary);
+
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease;
+}
+
+.navbar-signout:hover {
+  color: var(--color-error);
+}
+
+
+/* =========================================================
+   NAVBAR RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1024px) {
+
+  .stylefit-navbar .navbar-icon-button {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+}
+
+
+@media (max-width: 768px) {
+
+  .stylefit-navbar {
+    min-height: 4rem;
+  }
+
+}
+
+
+/* =========================================================
+   REMOVE OLD USER-NAME STYLING
+   ========================================================= */
+
+/*
+   The navbar no longer displays the full user email/name
+   beside the avatar.
+
+   The user's full name and email are shown on the Profile page.
+
+   Keeping this class hidden also protects against any old
+   navbar fragment accidentally referencing it.
+*/
+
+.navbar-user-name {
+  display: none !important;
+}
+
+
+/* =========================================================
+   GENERAL LINKS
+   ========================================================= */
+
+a {
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   BUTTON FOCUS
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

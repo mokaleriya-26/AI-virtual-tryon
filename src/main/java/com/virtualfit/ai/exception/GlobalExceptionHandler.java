@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.util.Map;
@@ -20,6 +21,12 @@ public class GlobalExceptionHandler {
         log.error("File upload size exceeded", exc);
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE)
                 .body(Map.of("success", false, "error", "File too large. Maximum size is 20MB."));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException exception) {
+        return ResponseEntity.badRequest()
+                .body(Map.of("message", "Please enter a valid name, email, and password."));
     }
 
     @ExceptionHandler(RuntimeException.class)

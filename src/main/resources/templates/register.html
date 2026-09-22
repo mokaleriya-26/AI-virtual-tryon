@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | VirtualFit AI</title>
+    <title>Sign Up | StyleFit</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -43,10 +43,10 @@
                     </div>
                 </a>
                 <h2 class="text-3xl font-bold text-navy tracking-tight mb-2">Create Account</h2>
-                <p class="text-text-secondary">Join VirtualFit AI today</p>
+                <p class="text-text-secondary">Join StyleFit today</p>
             </div>
             
-            <div id="errorBox" class="hidden bg-red-50 text-red-500 p-4 rounded-xl border border-red-200 mb-6 text-sm text-center">
+            <div id="errorBox" class="hidden p-4 rounded-xl border mb-6 text-sm text-center">
             </div>
 
             <form id="registerForm" class="space-y-6">
@@ -98,17 +98,32 @@
                     body: JSON.stringify({ name, email, password })
                 });
                 
+                const data = await response.json().catch(() => ({}));
+
                 if (response.ok) {
                     window.location.href = '/stylefit';
-                } else {
-                    const data = await response.json();
+                } else if (response.status === 409) {
                     const errorBox = document.getElementById('errorBox');
-                    errorBox.textContent = data.message || 'Registration failed';
+                    errorBox.className = 'bg-purple-50 text-slate-700 p-4 rounded-xl border border-purple-200 mb-6 text-sm text-center';
+                    errorBox.innerHTML = 'An account with this email already exists.<br><span class="inline-block mt-2">Already have an account? <a href="/login" class="font-bold text-primary hover:text-primary-dark">Sign in</a></span>';
+                    errorBox.classList.remove('hidden');
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                } else if (response.status >= 400 && response.status < 500) {
+                    const errorBox = document.getElementById('errorBox');
+                    errorBox.className = 'bg-red-50 text-red-500 p-4 rounded-xl border border-red-200 mb-6 text-sm text-center';
+                    errorBox.textContent = data.message || 'Please check your details and try again.';
+                    errorBox.classList.remove('hidden');
+                } else {
+                    const errorBox = document.getElementById('errorBox');
+                    errorBox.className = 'bg-red-50 text-red-500 p-4 rounded-xl border border-red-200 mb-6 text-sm text-center';
+                    errorBox.textContent = 'Something went wrong. Please try again.';
                     errorBox.classList.remove('hidden');
                 }
             } catch (err) {
                 const errorBox = document.getElementById('errorBox');
-                errorBox.textContent = 'Network error occurred';
+                errorBox.className = 'bg-red-50 text-red-500 p-4 rounded-xl border border-red-200 mb-6 text-sm text-center';
+                errorBox.textContent = 'Something went wrong. Please try again.';
                 errorBox.classList.remove('hidden');
             }
         });

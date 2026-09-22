@@ -104,10 +104,12 @@ public class HuggingFaceService {
             log.error("[VTO ERROR] Response body: {}", e.getResponseBodyAsString());
             log.error("[VTO ERROR] Endpoint: /call/tryon");
             log.error("[VTO ERROR] Request schema: 7 inputs");
-            throw new RuntimeException("Hugging Face inference failed", e);
+                throw new RuntimeException("Hugging Face inference failed: HTTP "
+                    + e.getStatusCode() + " from /call/tryon", e);
         } catch (Exception e) {
             log.error("[VTO ERROR] Inference failed: {}", e.getMessage(), e);
-            throw new RuntimeException("Hugging Face inference failed", e);
+                throw new RuntimeException("Hugging Face inference failed: "
+                    + (e.getMessage() == null ? "unknown Gradio error" : e.getMessage()), e);
         }
     }
 
