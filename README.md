@@ -631,53 +631,98 @@ Try-On History
 
 Show that the generated result has been stored and can be accessed later.
 
-⸻
 
 ## 9. Reference Paper
 
-Primary Research Paper
+### Primary Research Paper
 
-Title:
+**Title:**  
+*Avatar Closet: An Augmented Reality Based Multi-Modal Virtual Try-On System for Fashion Retail*
 
-Improving Diffusion Models for Authentic Virtual Try-on in the Wild
+**Authors:**
 
-Authors:
+- Sushma Vittal
+- Babitha Ganesh
+- Guruprasad Bhat
+- Sneha Shanbhag
+- Swati Shet
+- Vasudeva
+- Aruna Kumari G K
 
-* Yisol Choi
-* Sangkyung Kwak
-* Kyungmin Lee
-* Hyungwon Choi
-* Jinwoo Shin
+**Conference:**  
+2025 3rd International Conference on Recent Advances in Information Technology for Sustainable Development (ICRAIS)
 
-Venue:
+**Publication Year:**  
+2025
 
-ECCV 2024
+**DOI:**  
+10.1109/ICRAIS66073.2025.11234687
 
-arXiv:
+### Paper
 
-arXiv:2403.05139
+The reference paper is an IEEE conference paper available through IEEE Xplore.
 
-The paper presents IDM-VTON, a diffusion-based virtual try-on approach designed to improve garment fidelity and authenticity. (KAIST)
+The paper proposes a multi-modal Virtual Try-On system that integrates **Augmented Reality (AR), Artificial Intelligence (AI), Avatar technology, and Image Dressing** to improve the online fashion shopping experience. Avatar_Closet_An_Augmented_Reality_Based_Multi-Modal_Virtual_Try-On_System_for_Fashion_Retail.pdf
 
-Paper Links
+### Key Concepts from the Paper
 
-* Research Paper — arXiv
-* ECCV 2024 Paper
-* IDM-VTON Project Page
-* Official IDM-VTON GitHub
+The proposed **Avatar Closet** system provides three major virtual try-on modes:
 
-Citation
+1. **Avatar Mode**  
+   Creates a personalized 3D avatar that allows users to visualize garments in a virtual environment.
 
-@article{choi2024improving,
-  title={Improving Diffusion Models for Authentic Virtual Try-on in the Wild},
-  author={Choi, Yisol and Kwak, Sangkyung and Lee, Kyungmin and Choi, Hyungwon and Shin, Jinwoo},
-  journal={arXiv preprint arXiv:2403.05139},
-  year={2024}
-}
+2. **AR Mode**  
+   Uses camera-based augmented reality to project clothing onto the user's live image.
 
-The official IDM-VTON repository provides this citation and states that its code and checkpoints are under the CC BY-NC-SA 4.0 license. (GitHub)
+3. **Image Dressing Mode**  
+   Allows users to upload a personal photograph or model image and digitally apply selected garments. Avatar_Closet_An_Augmented_Reality_Based_Multi-Modal_Virtual_Try-On_System_for_Fashion_Retail.pdf
 
-⸻
+The paper also incorporates **Haar Cascade classifiers** for body and facial recognition and a **Gemini-based conversational assistant** for user guidance and outfit recommendations. Avatar_Closet_An_Augmented_Reality_Based_Multi-Modal_Virtual_Try-On_System_for_Fashion_Retail.pdf
+
+### Methodology
+
+The proposed architecture contains an **Avatar Closet**, which acts as a digital wardrobe containing clothing items, textures, and fitting information.
+
+The Try-On module coordinates three components:
+
+```text
+                    ┌────────────────────┐
+                    │    Avatar Closet   │
+                    │   Digital Wardrobe │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │      Try-On        │
+                    │      Module        │
+                    └─────────┬──────────┘
+                              │
+             ┌────────────────┼────────────────┐
+             │                │                │
+             ▼                ▼                ▼
+      Image Dressing       AR Camera        Avatar
+             │                │                │
+             └────────────────┼────────────────┘
+                              ▼
+                    ┌────────────────────┐
+                    │   Final Outcome    │
+                    └────────────────────┘
+```
+
+The paper explains that the Image Dressing component uses a pre-trained machine learning model to overlay garments onto user/model images, while the AR and Avatar components provide real-time and 3D-based visualization respectively. Avatar_Closet_An_Augmented_Reality_Based_Multi-Modal_Virtual_Try-On_System_for_Fashion_Retail.pdf
+
+
+### Citation
+
+```text
+S. V. Babitha Ganesh, G. Bhat, S. Shanbhag, S. Shet,
+Vasudeva and A. Kumari G K, "Avatar Closet: An Augmented
+Reality Based Multi-Modal Virtual Try-On System for Fashion
+Retail," 2025 3rd International Conference on Recent Advances
+in Information Technology for Sustainable Development (ICRAIS),
+2025, DOI: 10.1109/ICRAIS66073.2025.11234687.
+```
+
 
 ## 10. Student Details
 
