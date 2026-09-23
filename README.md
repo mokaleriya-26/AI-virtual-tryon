@@ -526,110 +526,15 @@ The history page displays the user's previously generated try-on results.
 
 ## 8. Demo Walkthrough
 
-The following sequence can be used for the project demonstration.
+Start the application
+mvn spring-boot:run
 
-1. Open StyleFit
-
-Start the application and open:
-
+and open:
 http://localhost:8080
 
 Show the StyleFit landing page.
 
-⸻
-
-2. Register / Login
-
-Demonstrate:
-
-Register
-   ↓
-Login
-   ↓
-Authenticated User
-
-⸻
-
-3. Open Shop
-
-Navigate to:
-
-Shop
-
-Demonstrate:
-
-* Product categories.
-* Product cards.
-* Product images.
-* Prices in ₹.
-* Search.
-* Category filtering.
-
-⸻
-
-4. Select a Garment
-
-Select one of the available garments.
-
-For example:
-
-T-Shirt
-
-Click:
-
-Try with StyleFit
-
-⸻
-
-5. Upload Person Image
-
-Upload a suitable person image.
-
-For better results, use:
-
-* Clear image.
-* Person facing the camera.
-* Good lighting.
-* Upper body clearly visible.
-* Minimal obstruction.
-
-⸻
-
-6. Generate Try-On
-
-Click the try-on/generate button.
-
-The backend sends the required information to the IDM-VTON inference service.
-
-Person Image
-      +
-Garment Image
-      ↓
-Spring Boot
-      ↓
-Hugging Face
-      ↓
-IDM-VTON
-      ↓
-Generated Result
-
-⸻
-
-7. Display Result
-
-The generated image is displayed on the result page.
-
-Demonstrate the generated output compared with the original person image and garment.
-
-⸻
-
-8. Open Try-On History
-
-Navigate to:
-
-Try-On History
-
-Show that the generated result has been stored and can be accessed later.
+The following video demonstrates the complete StyleFit workflow, including user authentication, browsing garments, selecting a garment, uploading a person image, generating the virtual try-on result, and viewing try-on history.
 
 
 ## 9. Reference Paper
