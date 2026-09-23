@@ -536,6 +536,8 @@ Show the StyleFit landing page.
 
 The following video demonstrates the complete StyleFit workflow, including user authentication, browsing garments, selecting a garment, uploading a person image, generating the virtual try-on result, and viewing try-on history.
 
+[▶️ Watch the StyleFit Demo](docs/screenshots/walkthrough.mov)
+
 
 ## 9. Reference Paper
 
