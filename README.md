@@ -79,20 +79,16 @@ Supported categories include:
 
 Users upload their image and select the garment they want to visualize.
 
-![StyleFit stylefit Page](docs/screenshots/stylefit.png)
-![StyleFit stylefit1 Page](docs/screenshots/stylefit1.png)
-
 ### 2.6 AI Generated Result
 
 The generated virtual try-on result is displayed after the IDM-VTON inference process is completed.
 
-![StyleFit result Page](docs/screenshots/result.png)
 
 ### 2.7 Try-On History
 
 Users can view their previously generated try-on results.
 
-![StyleFit tryonhistory Page](docs/screenshots/tryonhistory.png)
+
 
 
 ## 3. Tech Stack
@@ -266,11 +262,8 @@ The system requires two main visual inputs:
 1. Person Image
 2. Garment Image
 
-![StyleFit stylefit1 Page](docs/screenshots/stylefit1.png)
-
 The system gives below output
 
-![StyleFit result Page](docs/screenshots/result.png)
 
 ## 7. Working of the Application
 
